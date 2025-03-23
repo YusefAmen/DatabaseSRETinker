@@ -24,3 +24,5 @@ This repository contains the configuration and setup for a local data tinkering 
   while read -r name url; do helm repo add "$name" "$url"; done < helm-repos.txt
   helm repo update
   ```
+
+**Note**: The Grafana service uses a NodePort on port 30000, which is mapped to host port 3000 via the Kind cluster configuration. Kubernetes NodePort values must be in the range 30000–32767.
