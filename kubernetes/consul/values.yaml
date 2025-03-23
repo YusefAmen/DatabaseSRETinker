@@ -1,0 +1,11 @@
+# Custom values for Consul
+global:
+  name: consul
+server:
+  replicas: 1  # Single replica for a local setup
+ui:
+  enabled: true
+  service:
+    type: NodePort
+    port: 8500
+    nodePort: 30850  # Within the valid NodePort range (30000-32767)

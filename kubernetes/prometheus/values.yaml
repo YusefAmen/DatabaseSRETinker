@@ -10,6 +10,16 @@ grafana:
   service:
     type: NodePort
     port: 80
-    nodePort: 30000  # Changed to a valid NodePort range (30000-32767)
+    nodePort: 30000 
+  readinessProbe:
+    initialDelaySeconds: 30  # Wait 30 seconds before starting probes
+    timeoutSeconds: 5
+    periodSeconds: 10
+    successThreshold: 1
+    failureThreshold: 5
 alertmanager:
-  enabled: false  # Disable Alertmanager for now
+  enabled: false
+kubeStateMetrics:
+  enabled: false
+nodeExporter:
+  enabled: false

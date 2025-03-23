@@ -3,10 +3,10 @@ apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
 - role: control-plane
   extraPortMappings:
-  - containerPort: 30000  # Updated to match Grafana's nodePort
+  - containerPort: 30000 # Updated to match Grafana's nodePort
     hostPort: 3000
     protocol: TCP
-  - containerPort: 8500
+  - containerPort: 30850  # Updated to match Consul's nodePort
     hostPort: 8500
     protocol: TCP
   - containerPort: 9090
