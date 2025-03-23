@@ -1,0 +1,2 @@
+NAME                	URL                                               
+prometheus-community	https://prometheus-community.github.io/helm-charts
