@@ -7,5 +7,9 @@ ui:
   enabled: true
   service:
     type: NodePort
-    port: 8500
-    nodePort: 30850  # Within the valid NodePort range (30000-32767)
+    port: 
+      http: 8500
+      https: null
+    nodePort:
+      http: 30850
+      https: null
