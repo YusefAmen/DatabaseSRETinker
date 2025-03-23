@@ -1,0 +1,15 @@
+# Custom values for kube-prometheus-stack
+prometheus:
+  enabled: true
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+grafana:
+  enabled: true
+  adminPassword: "admin123"  # Change this in production
+  service:
+    type: NodePort
+    port: 80
+    nodePort: 30000  # Changed to a valid NodePort range (30000-32767)
+alertmanager:
+  enabled: false  # Disable Alertmanager for now
