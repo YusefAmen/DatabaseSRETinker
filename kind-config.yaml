@@ -9,6 +9,6 @@ nodes:
   - containerPort: 30850  # Updated to match Consul's nodePort
     hostPort: 8500
     protocol: TCP
-  - containerPort: 9090
+  - containerPort: 30090
     hostPort: 9090
     protocol: TCP

@@ -3,13 +3,24 @@ global:
   name: consul
 server:
   replicas: 1  # Single replica for a local setup
+  extraConfig: |
+    {
+      "telemetry": {
+        "prometheus_retention_time": "30s"
+      }
+    }
 ui:
   enabled: true
   service:
+    enabled: true
     type: NodePort
-    port: 
+    port:
       http: 8500
       https: null
     nodePort:
       http: 30850
       https: null
+# Add annotations to the default consul service
+serviceAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8500"
