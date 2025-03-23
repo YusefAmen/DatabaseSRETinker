@@ -1,2 +1,4 @@
 NAME                	URL                                               
 prometheus-community	https://prometheus-community.github.io/helm-charts
+hashicorp           	https://helm.releases.hashicorp.com               
+bitnami             	https://charts.bitnami.com/bitnami                

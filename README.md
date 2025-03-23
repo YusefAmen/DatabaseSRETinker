@@ -18,3 +18,9 @@ This repository contains the configuration and setup for a local data tinkering 
 - Install Homebrew packages:
   ```bash
   brew bundle --file=Brewfile
+
+- Set up Helm:
+  ```bash
+  while read -r name url; do helm repo add "$name" "$url"; done < helm-repos.txt
+  helm repo update
+  ```
