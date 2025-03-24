@@ -1,0 +1,28 @@
+loki:
+  service:
+    type: NodePort
+    nodePort: 31000
+  storage:
+    type: filesystem  # Use filesystem storage for local development
+    bucketNames:
+      chunks: chunks
+      ruler: ruler
+      admin: admin
+  commonConfig:
+    path_prefix: /var/loki
+    replication_factor: 1
+  schemaConfig:
+    configs:
+    - from: "2024-01-01"
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+  compactor:
+    working_directory: /var/loki/compactor
+    shared_store: filesystem
+  storage_config:
+    filesystem:
+      directory: /var/loki/chunks

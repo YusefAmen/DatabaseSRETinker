@@ -12,10 +12,11 @@ KIND_CONFIG_FILE="$HOME/DatabaseSRETinker/kind-config.yaml"
 CONSUL_VALUES_FILE="$HOME/DatabaseSRETinker/kubernetes/consul/values.yaml"
 PROMETHEUS_VALUES_FILE="$HOME/DatabaseSRETinker/kubernetes/prometheus/values.yaml"
 SERVICEMONITOR_FILE="$HOME/DatabaseSRETinker/kubernetes/prometheus/consul-service-monitor.yaml"
+LOKI_VALUES_FILE="$HOME/DatabaseSRETinker/kubernetes/loki/values.yaml"
 
 # Step 1: Verify that required files exist
 echo "Verifying required files exist..."
-for file in "$KIND_CONFIG_FILE" "$CONSUL_VALUES_FILE" "$PROMETHEUS_VALUES_FILE" "$SERVICEMONITOR_FILE"; do
+for file in "$KIND_CONFIG_FILE" "$CONSUL_VALUES_FILE" "$PROMETHEUS_VALUES_FILE" "$SERVICEMONITOR_FILE" "$LOKI_VALUES_FILE"; do
   if [ ! -f "$file" ]; then
     echo "Error: $file does not exist. Please create it before running this script."
     exit 1
@@ -56,6 +57,14 @@ kubectl annotate svc consul-server -n consul --context kind-data-tinkering \
   prometheus.io/port="8500" \
   --overwrite
 
+
+echo "Deploying Loki..."
+helm install loki grafana/loki \
+  --namespace monitoring \
+  --create-namespace \
+  --kube-context kind-data-tinkering \
+  --values "$LOKI_VALUES_FILE"
+
 # Step 7: Verify deployments
 echo "Verifying Consul services..."
 kubectl get svc -n consul --context kind-data-tinkering
@@ -69,6 +78,9 @@ kubectl get pods -n consul --context kind-data-tinkering
 echo "Verifying Prometheus/Grafana pods..."
 kubectl get pods -n monitoring --context kind-data-tinkering
 
+echo "Verifying Prometheus/Grafana/Loki pods..."
+kubectl get pods -n monitoring --context kind-data-tinkering
+
 echo "Verifying ServiceMonitor..."
 kubectl get servicemonitor -n monitoring --context kind-data-tinkering
 
@@ -77,3 +89,4 @@ echo "Setup complete! Access the services at:"
 echo "  - Consul UI: http://localhost:8500"
 echo "  - Grafana: http://localhost:3000 (username: admin, password: admin123)"
 echo "  - Prometheus: http://localhost:9090"
+echo "  - Loki: http://localhost:3100 (for verification)"

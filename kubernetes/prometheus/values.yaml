@@ -4,9 +4,10 @@ prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorSelector: {}
-    service:
-      type: NodePort
-      nodePort: 30090
+  service:
+    type: NodePort
+    port: 9090
+    nodePort: 30090
 grafana:
   enabled: true
   adminPassword: "admin123"  # Change this in production
