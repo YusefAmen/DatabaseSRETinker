@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: consul-metrics
+  namespace: consul
+  labels:
+    release: prometheus-stack  # Matches the Prometheus release label
+spec:
+  namespaceSelector:
+    matchNames:
+    - consul
+  selector:
+    matchLabels:
+      app: consul
+      component: server
+  endpoints:
+  - port: "http"  # Matches the port name in the service
+    path: /v1/agent/metrics
+    interval: 15s  # Scrape every 15 seconds
